@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <title>Magasin de la science Aperture</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div th:fragment="base">
+    <div th:fragment="header">
+        <h1>Magasin de la science Aperture</h1>
+    </div>
+
+    <div id="logo" th:fragment="logo">
+        <a href=".."><img th:src="@{/img/1200px-Aperture_Science_Logo.svg.png}" alt="Aperture science logo" height="100px" width="100px" /></a>
+    </div>
+
+    <div id="menu" th:fragment="menu">
+        <button id="navBtn" ><img th:src="@{/img/56763.png}" alt="nav" height="12px" width="12px"></button>
+        <div id="navCont" hidden>
+            <div id="users">
+
+            </div>
+            <h2>Navigation</h2>
+
+        </div>
+    </div>
+</div>
+
+<footer th:fragment="footer">
+    <p>Copyright Aperture Science</p>
+    <br />
+    <p>CY tech</p>
+</footer>
+
+</body>
+</html>
