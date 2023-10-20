@@ -1,20 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/base :: head">
+<head th:replace="~{fragments/base :: head}">
 </head>
 <body>
 
-<header th:replace="fragments/base :: header"></header>
-
-<div th:replace="fragments/base :: menu"></div>
-
-<div th:replace="fragments/base :: logo"></div>
-
-<main th:replace="fragments/accueil :: main">
+<div th:replace="~{fragments/base :: nav}"></div>
+<div th:replace="~{fragments/base :: footer}"></div>
 
 
-
-</main>
-<footer th:replace="fragments/base :: footer"></footer>
+<main th:insert="~{fragments/accueil :: main}"></main>
 </body>
 </html>

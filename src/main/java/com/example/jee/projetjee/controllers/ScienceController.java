@@ -16,9 +16,9 @@ public class ScienceController {
     private ScienceRepository scienceRepository;
 
     @RequestMapping("/")
-    String index(Model model){
+    String index(Model model) {
 
-        model.addAttribute("body", "fragments/accueil.html :: main");
+        model.addAttribute("content", "fragments/accueil :: main");
 
         return "index";
     }
