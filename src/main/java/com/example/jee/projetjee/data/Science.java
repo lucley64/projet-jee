@@ -11,7 +11,7 @@ public class Science {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int idScience;
+    private long idScience;
 
     @Column(unique = true)
     private String image;

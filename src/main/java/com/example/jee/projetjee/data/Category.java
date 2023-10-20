@@ -12,7 +12,7 @@ import lombok.Setter;
 public class Category {
 
     @Id
-    private int idCategory;
+    private long idCategory;
 
     @Column(unique = true)
     private String name;
