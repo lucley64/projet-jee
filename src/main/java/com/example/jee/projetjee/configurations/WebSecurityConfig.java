@@ -1,5 +1,6 @@
 package com.example.jee.projetjee.configurations;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,11 +17,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-        return security.authorizeHttpRequests(request ->
-            request.requestMatchers("/").permitAll().anyRequest().authenticated()
-        ).formLogin(form -> form.loginPage("/login").permitAll()
-        ).logout(LogoutConfigurer::permitAll).build();
+    public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity security) throws Exception {
+
+
+        return security
+                .authorizeHttpRequests(request ->
+                        request.requestMatchers("/", "/science", "/css/**", "/img/**").permitAll().anyRequest().authenticated()
+                )
+                .formLogin(form ->
+                        form.loginPage("/login").permitAll()
+                )
+                .logout(LogoutConfigurer::permitAll).build();
     }
 
     @Bean

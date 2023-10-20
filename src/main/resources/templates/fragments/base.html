@@ -18,10 +18,10 @@
 
     <div id="menu" th:fragment="menu">
         <button id="navBtn" ><img th:src="@{/img/56763.png}" alt="nav" height="12px" width="12px"></button>
-        <div id="navCont" hidden>
-            <div id="users">
-
-            </div>
+        <div id="navCont">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="sign out">
+            </form>
             <h2>Navigation</h2>
 
         </div>
