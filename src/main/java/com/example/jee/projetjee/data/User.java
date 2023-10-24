@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Entity
 @Getter
 @Setter
@@ -22,9 +24,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+
     @ManyToOne(targetEntity = Role.class)
     private Role role;
 
-    @Column
-    private String cart;
+
+    @ManyToMany(targetEntity = Science.class)
+    private Map<Science, Integer> cart;
 }

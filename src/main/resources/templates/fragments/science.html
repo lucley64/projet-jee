@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main th:fragment="main" class="main">
+    <script th:src="@{/js/science.js}"></script>
+
+    <h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white">Produits</h1>
+    <!--        <div th:each="category: ${categories}"><p th:text="${category.name}"></p> </div>-->
+
+    <div class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 pt-20">
+        <a th:each="category: ${categories}" th:href="@{'/science/' + ${category.name.toLowerCase()}}">
+            <button th:text="${category.name}"></button>
+        </a>
+    </div>
+
+
+    <div class="pl-64" th:if="${selectedCat.isPresent()}" th:with="category=${selectedCat.get()}">
+        <h2 th:text="${category.name}"></h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Commande</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="science: ${category.sciences}">
+                <td>
+                    <img th:src="@{${science.image}}" th:alt="${science.name}" height="100" width="100"/>
+                </td>
+                <td class='name' th:id="${science.idScience}" th:text="${science.name}"></td>
+                <td th:text="${science.price} + '€'"></td>
+                <td class="cmd">
+                    isDisabled
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--        <div id="contenu">-->
+    <!--            <div id="panier-menu" <?php if (!isset($_SESSION["panier"])) {-->
+    <!--                                    echo "hidden";-->
+    <!--                                } ?>>-->
+    <!--            <button class="menu" id="toggle" onclick="togglePanier(this)">Voir panier</button>-->
+    <!--            <div id="panier" hidden>-->
+    <!--                <ul>-->
+    <!--                    <?php-->
+    <!--                    $panier = $_SESSION["panier"];-->
+    <!--                    foreach ($panier as $key => $value) {-->
+    <!--                    $prod = explode(".", $key);-->
+    <!--                    echo "<li id=$prod[1]>$prod[0] : $value</li>";-->
+    <!--                    }-->
+    <!--                    ?>-->
+
+    <!--                </ul>-->
+    <!--                <button class="menu" onclick="viderPanier(this)">Vider le panier</button>-->
+    <!--                <button class="menu" onclick="commander(this)">Valider la commande</button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--        <?php-->
+    <!--        include "./php/bdd.php";-->
+    <!--        $db = getBdd();-->
+    <!--        $host = getHost();-->
+    <!--        $user = getLogin();-->
+    <!--        $passworddb = getPassword();-->
+
+    <!--        $dbConnect = new PDO("mysql:host=" . $host . ";dbname=" . $db, $user, $passworddb);-->
+    <!--        $request1 = $dbConnect->query("SELECT * FROM `Categorie`");-->
+
+    <!--        $headbtn = "<div id=\"tab-buttons\">";-->
+    <!--        $content = "";-->
+    <!--        while ($cats = $request1->fetch()) {-->
+    <!--        $id = "";-->
+    <!--        if ($_GET['cat'] == $cats['Nom']) {-->
+    <!--        $id = "this-btn";-->
+    <!--        }-->
+
+    <!--        $headbtn = $headbtn . "<button id=\"" . $id . "\" class=\"menu\" onclick=\"openTab(this)\">$cats[Nom]</button>";-->
+    <!--        $request2 = $dbConnect->query("SELECT p.* FROM `Produit` p JOIN `Categorie` c ON c.Id = p.Categorie WHERE c.Id = $cats[Id]");-->
+    <!--        $content = $content . "<div id=\"$cats[Nom]\" class=\"tab\" hidden>-->
+    <!--            <table>-->
+    <!--                <caption>-->
+    <!--                    <h1>$cats[Nom]</h1>-->
+    <!--                </caption>-->
+    <!--                <thead>-->
+    <!--                <tr>-->
+    <!--                    <th>Image</th>-->
+    <!--                    <th>Nom</th>-->
+    <!--                    <th>Prix</th>-->
+    <!--                    <th>Commande</th>-->
+    <!--                    <th class=\"qte\" hidden>Stock</th>-->
+    <!--                </tr>-->
+    <!--                </thead>-->
+    <!--                <tbody>";-->
+    <!--                while ($value = $request2->fetch()) {-->
+    <!--                $isDisabled = $value["Stock"] > 0 ? "-->
+    <!--                <div class=\"counter\">-->
+    <!--                    <button class=\"counter\" onclick=\"remCmd(this)\" disabled>-</button>-->
+    <!--                    <input class=\"counter\" type=\"number\" value=\"0\" disabled />-->
+    <!--                    <button class=\"counter\" onclick=\"addCmd(this)\">+</button>-->
+    <!--                </div>-->
+    <!--                <button name=\"$value[Nom]\" id=\"panier\" class=\"panier\" onclick=\"ajouterAuPanier(this)\">Ajouter au panier</button>" : "<p> Rupture de stock</p>";-->
+    <!--                $content = $content . "<tr>-->
+    <!--                    <td>-->
+    <!--                        <img class=\"image\" src=\"$value[Image]\" alt=\"$value[Nom]\" height=\"100\" width=\"100\" />-->
+    <!--                    </td>-->
+    <!--                    <td class='name' id=$value[Id]>-->
+    <!--                        $value[Nom]-->
+    <!--                    </td>-->
+    <!--                    <td>-->
+    <!--                        $value[Prix] €-->
+    <!--                    </td>-->
+    <!--                    <td class=\"cmd\">-->
+    <!--                        $isDisabled-->
+    <!--                    </td>-->
+    <!--                    <td class=\"qte\" hidden>-->
+    <!--                        $value[Stock]-->
+    <!--                    </td>-->
+    <!--                </tr>";-->
+    <!--                }-->
+    <!--                $content = $content . "</tbody>-->
+    <!--            </table>-->
+    <!--        </div>";-->
+    <!--        }-->
+    <!--        echo $headbtn . "</div>";-->
+    <!--        echo $content;-->
+
+
+    <!--        ?>-->
+    <!--        <div id="downMenu">-->
+    <!--            <?php-->
+    <!--            if (isset($_SESSION["role"]) && $_SESSION["role"] >= 99) {-->
+    <!--            echo '<button id="sockButton" class="menu" onclick="afficherStock()">Afficher stocks</button>';-->
+    <!--            }-->
+    <!--            ?>-->
+    <!--        </div>-->
+    <!--        </div>-->
+    <!--        <div id="zoomImage" hidden></div>-->
+    <!--        <div id="zoomLens" hidden></div>-->
+</main>
+</body>
+</html>
