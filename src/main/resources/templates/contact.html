@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments/base :: head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/base :: nav}"></div>
+
+<h1 th:text="Contact"></h1>
+
+<div class="pl-6 pt-6">
+    <label for="lastname">Nom</label>
+    <input id="lastname" type="text" class="border-blue-300 w-64">
+</div>
+
+<div class="pl-6 pt-6">
+    <label for="firstname">Prénom</label>
+    <input id="firstname" type="text" class="border-blue-300 w-64">
+</div>
+
+<div class="pl-6 pt-6">
+    <label for="email">Email</label>
+    <input id="email" type="email" class="border-blue-300 w-64">
+</div>
+
+<div class="pl-6 pt-6">
+    <fieldset>
+        <legend>Genre</legend>
+
+        <label for="man">Homme</label>
+        <input id="man" type="radio" name="genre" value="homme">
+
+        <label for="woman">Femme</label>
+        <input id="woman" type="radio" name="genre" value="femme">
+
+        <label for="other">Autre</label>
+        <input id="other" type="radio" name="genre" value="autre">
+    </fieldset>
+</div>
+
+<div class="pl-6 pt-6">
+    <label for="birthday">Date de naissance</label>
+    <input id="birthday" type="date" class="border-blue-300 w-64">
+</div>
+
+<div class="pl-6 pt-6">
+    <label for="subject">Sujet</label>
+    <input id="subject" type="text" class="border-blue-300 w-64">
+</div>
+
+<div class="pl-6 pt-6">
+    <label for="subject">Contenu</label>
+    <input id="content" type="text" class="border-blue-300  w-64">
+</div>
+
+
+
+
+<div th:replace="~{fragments/base :: footer}"></div>
+
+</body>
+</html>
