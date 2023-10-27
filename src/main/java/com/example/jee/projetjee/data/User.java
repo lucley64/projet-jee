@@ -34,33 +34,20 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private transient Set<Carts> carts;
 
-    public void setRoles(Role... roles) {
-        this.roles = Set.of(roles);
-    }
+    @Column
+    private boolean isAccountNonExpired = true;
 
+    @Column
+    private boolean isAccountNonLocked = true;
+
+    @Column
+    private boolean isCredentialsNonExpired = true;
+
+    @Column
+    private boolean isEnabled = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

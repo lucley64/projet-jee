@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.inject.Inject;
+import java.util.Collections;
 
 @Controller
 public class RegistrationController {
@@ -44,7 +45,7 @@ public class RegistrationController {
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 
         var roles = roleRepository.findByName("ROLE_USER");
-        roles.ifPresent(user::setRoles);
+        roles.ifPresent(role -> user.setRoles(Collections.singleton(role)));
         userRepository.save(user);
         model.addAttribute("notification", "User is registered successfully!");
         return new RedirectView("/login");
