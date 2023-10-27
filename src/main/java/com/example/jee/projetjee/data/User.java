@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -32,9 +31,8 @@ public class User implements UserDetails {
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-
-    @ManyToMany(targetEntity = Science.class)
-    private Map<Science, Integer> cart;
+    @OneToMany(mappedBy = "user")
+    private transient Set<Carts> carts;
 
     public void setRoles(Role... roles) {
         this.roles = Set.of(roles);
