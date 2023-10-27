@@ -4,9 +4,13 @@ import jakarta.annotation.Resource;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,15 +26,19 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity security) throws Exception {
 
-
         return security
-                .authorizeHttpRequests(request ->
-                        request.requestMatchers("/**").permitAll().anyRequest()
-                )
-                .formLogin(form ->
-                        form.loginPage("/login").permitAll()
-                )
-                .logout(LogoutConfigurer::permitAll).build();
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/**")
+                                .permitAll().anyRequest())
+                .headers(httpSecurityHeadersConfigurer ->
+                        httpSecurityHeadersConfigurer
+                                .frameOptions(HeadersConfigurer
+                                        .FrameOptionsConfig::disable))
+                .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login").permitAll())
+                .logout(LogoutConfigurer::permitAll)
+                .build();
     }
 
     @Bean
@@ -46,8 +54,9 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(authProvider());
-//    }
+    @Bean
+    public AuthenticationManager authenticationManager(@NotNull AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
 }

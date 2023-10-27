@@ -29,17 +29,12 @@ public class User implements UserDetails {
     private String password;
 
 
-    @ManyToMany(targetEntity = Role.class)
+    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
 
     @ManyToMany(targetEntity = Science.class)
     private Map<Science, Integer> cart;
-
-//    public void setPassword(String password) {
-//
-//        this.password = new BCryptPasswordEncoder().encode(password);
-//    }
 
     public void setRoles(Role... roles) {
         this.roles = Set.of(roles);
@@ -53,17 +48,17 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
