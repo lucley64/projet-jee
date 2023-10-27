@@ -26,7 +26,7 @@ public class ScienceController {
 
         model.addAttribute("template", "home");
 
-        return "index";
+        return "home";
     }
 
     @RequestMapping({"/science", "/science/{catName}"})
@@ -40,16 +40,8 @@ public class ScienceController {
         model.addAttribute("template", "science");
 
 
-        return "index";
+        return "science";
     }
-
-    @RequestMapping({"/raw/science", "/raw/science/{catName}"})
-    String rawScience(@NotNull Model model, @PathVariable Optional<String> catName) {
-        science(model, catName);
-        return "fragments/science";
-    }
-
-
     private Optional<Category> getCategoryOrFirst(@NotNull Optional<String> catName) {
         Optional<Category> selectedCat;
         if (catName.isPresent()) {

@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!DOCTYPE HTML>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head}">
 </head>
 <body>
+
+<div th:replace="~{fragments/base :: nav}"></div>
+<div th:replace="~{fragments/base :: footer}"></div>
+
 <main th:fragment="main" class="main">
     <script th:src="@{/js/science.js}"></script>
 
