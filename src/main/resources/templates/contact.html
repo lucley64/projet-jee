@@ -8,25 +8,27 @@
 
 <div th:replace="~{fragments/base :: nav}"></div>
 
-<h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white pt-20">Contact</h1>
+<main>
 
-<div class="top-5 z-40 w-full h-screen transition-transform -translate-x-full sm:translate-x-0">
+    <h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white pt-20">Contact</h1>
 
-    <form id="formContact" class="w-full flex flex-col items-center" action="" method="post">
-        <div class="p-4">
-            <label for="lastname">Name</label>
-        </div>
-        <input id="lastname" type="text" class=" border border-gray-200 w-64 flex-auto" required>
+    <div class="top-5 z-40 w-full h-screen transition-transform -translate-x-full sm:translate-x-0">
 
-        <div class="p-4">
-            <label for="firstname">Firstname</label>
-        </div>
-        <input id="firstname" type="text" class="border border-gray-200 w-64 flex-auto" required>
+        <form id="formContact" class="w-full flex flex-col items-center" action="" method="post">
+            <div class="p-4">
+                <label for="lastname">Name</label>
+            </div>
+            <input id="lastname" type="text" class=" border border-gray-200 w-64 flex-auto" required>
 
-        <div class="p-4">
-            <label for="email">Email</label>
-        </div>
-        <input id="email" type="email" class="border border-gray-200 w-64 flex-auto" required>
+            <div class="p-4">
+                <label for="firstname">Firstname</label>
+            </div>
+            <input id="firstname" type="text" class="border border-gray-200 w-64 flex-auto" required>
+
+            <div class="p-4">
+                <label for="email">Email</label>
+            </div>
+            <input id="email" type="email" class="border border-gray-200 w-64 flex-auto" required>
 
             <fieldset>
                 <legend class="p-4">Gender</legend>
@@ -42,27 +44,29 @@
                 </div>
             </fieldset>
 
-        <div class="p-4">
-            <label for="birthday">Birthdate</label>
-        </div>
-        <input id="birthday" type="date" class="border border-gray-200 w-64 flex-auto" required>
+            <div class="p-4">
+                <label for="birthday">Birthdate</label>
+            </div>
+            <input id="birthday" type="date" class="border border-gray-200 w-64 flex-auto" required>
 
-        <div class="p-4">
-            <label for="subject">Subject</label>
-        </div>
-        <input id="subject" type="text" class="border border-gray-200 w-1_2 flex-auto" required>
+            <div class="p-4">
+                <label for="subject">Subject</label>
+            </div>
+            <input id="subject" type="text" class="border border-gray-200 w-1_2 flex-auto" required>
 
-        <div class="pl-3 p-4">
-            <label for="content">Content</label>
-        </div>
-        <textarea id="content" type="text" class="resize-none border border-gray-200 w-3_4 h-1_2 flex-auto" required></textarea>
+            <div class="pl-3 p-4">
+                <label for="content">Content</label>
+            </div>
+            <textarea id="content" type="text" class="resize-none border border-gray-200 w-3_4 h-1_2 flex-auto" required></textarea>
 
-        <span class="p-4">
+            <span class="p-4">
             <button class="w-64 text-white bg-blue-700 hover:bg-blue-800 text-center" type="submit">Send</button>
         </span>
-    </form>
+        </form>
 
-</div>
+    </div>
+</main>
+
 
 <div th:replace="~{fragments/base :: footer}"></div>
 
