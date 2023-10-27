@@ -8,55 +8,61 @@
 
 <div th:replace="~{fragments/base :: nav}"></div>
 
-<h1 th:text="Contact"></h1>
+<h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white pt-20">Contact</h1>
 
-<div class="pl-6 pt-6">
-    <label for="lastname">Nom</label>
-    <input id="lastname" type="text" class="border-blue-300 w-64">
+<div class="top-5 z-40 w-full h-screen transition-transform -translate-x-full sm:translate-x-0">
+
+    <form id="formContact" class="w-full flex flex-col items-center" action="" method="post">
+        <div class="p-4">
+            <label for="lastname">Name</label>
+        </div>
+        <input id="lastname" type="text" class=" border border-gray-200 w-64 flex-auto" required>
+
+        <div class="p-4">
+            <label for="firstname">Firstname</label>
+        </div>
+        <input id="firstname" type="text" class="border border-gray-200 w-64 flex-auto" required>
+
+        <div class="p-4">
+            <label for="email">Email</label>
+        </div>
+        <input id="email" type="email" class="border border-gray-200 w-64 flex-auto" required>
+
+            <fieldset>
+                <legend class="p-4">Gender</legend>
+                <div class="mt-4">
+                    <label for="man">Male</label>
+                    <input id="man" type="radio" name="genre" value="male" required>
+
+                    <label for="woman">Female</label>
+                    <input id="woman" type="radio" name="genre" value="female" required>
+
+                    <label for="other">Other</label>
+                    <input id="other" type="radio" name="genre" value="Other" required>
+                </div>
+            </fieldset>
+
+        <div class="p-4">
+            <label for="birthday">Birthdate</label>
+        </div>
+        <input id="birthday" type="date" class="border border-gray-200 w-64 flex-auto" required>
+
+        <div class="p-4">
+            <label for="subject">Subject</label>
+        </div>
+        <input id="subject" type="text" class="border border-gray-200 w-1_2 flex-auto" required>
+
+        <div class="pl-3 p-4">
+            <label for="content">Content</label>
+        </div>
+        <textarea id="content" type="text" class="resize-none border border-gray-200 w-3_4 h-1_2 flex-auto" required></textarea>
+
+        <span class="p-4">
+            <button class="w-64 text-white bg-blue-700 hover:bg-blue-800 text-center" type="submit">Send</button>
+        </span>
+    </form>
+
 </div>
-
-<div class="pl-6 pt-6">
-    <label for="firstname">Prénom</label>
-    <input id="firstname" type="text" class="border-blue-300 w-64">
-</div>
-
-<div class="pl-6 pt-6">
-    <label for="email">Email</label>
-    <input id="email" type="email" class="border-blue-300 w-64">
-</div>
-
-<div class="pl-6 pt-6">
-    <fieldset>
-        <legend>Genre</legend>
-
-        <label for="man">Homme</label>
-        <input id="man" type="radio" name="genre" value="homme">
-
-        <label for="woman">Femme</label>
-        <input id="woman" type="radio" name="genre" value="femme">
-
-        <label for="other">Autre</label>
-        <input id="other" type="radio" name="genre" value="autre">
-    </fieldset>
-</div>
-
-<div class="pl-6 pt-6">
-    <label for="birthday">Date de naissance</label>
-    <input id="birthday" type="date" class="border-blue-300 w-64">
-</div>
-
-<div class="pl-6 pt-6">
-    <label for="subject">Sujet</label>
-    <input id="subject" type="text" class="border-blue-300 w-64">
-</div>
-
-<div class="pl-6 pt-6">
-    <label for="subject">Contenu</label>
-    <input id="content" type="text" class="border-blue-300  w-64">
-</div>
-
-
-
 
 <div th:replace="~{fragments/base :: footer}"></div>
 

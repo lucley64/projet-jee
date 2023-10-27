@@ -361,6 +361,10 @@ textarea {
   resize: vertical;
 }
 
+.resize-none {
+  resize: none;
+}
+
 /*
 1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
 2. Set the default placeholder color to the user's configured gray 400 color.
@@ -627,6 +631,10 @@ video {
   height: 2rem;
 }
 
+.h-1_2 {
+  height: 50%;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -641,6 +649,14 @@ video {
 
 .w-64 {
   width: 16rem;
+}
+
+.w-1_2 {
+  width: 50%;
+}
+
+.w-3_4 {
+  width: 75%;
 }
 
 .w-full {
