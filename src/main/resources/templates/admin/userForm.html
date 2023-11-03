@@ -7,8 +7,19 @@
     <nav th:replace="~{admin/fragments/adminFragments :: nav(${template})}"></nav>
     <div th:replace="~{admin/fragments/adminFragments :: sidebar}"></div>
 
-    <main>
+    <main class="main">
+        <h1 th:if="${user.isEmpty()}">Add new user</h1>
+        <h1 th:if="${user.isPresent()}" th:text="'Modify user ' + ${user.get().username}"></h1>
 
+
+        <form method="post" th:action="@{~}" th:object="${userDto}">
+            <p th:if="${user.isPresent()}" th:text="'id ' + ${user.get().idUser}"></p>
+            <label>Email <input type="text" th:field="*{email}"></label>
+            <label>Username <input type="text" th:field="*{username}"></label>
+            <label th:if="${user.isEmpty()}">Password <input type="password" th:field="*{password}"></label>
+            <label>Roles <select th:field="*{roles}" multiple><option th:each="role: ${roles}" th:text="${role.name}" th:value="${role.idRole}"></option> </select> </label>
+<!--       TODO faire marcher     <label>Account non expired<select th:field="*{isAccountNonExpired}"><option th:value="1">true</option> <option th:value="0">false</option> </select> </label>-->
+        </form>
     </main>
 
 </div>

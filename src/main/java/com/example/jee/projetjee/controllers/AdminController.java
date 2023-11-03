@@ -1,5 +1,6 @@
 package com.example.jee.projetjee.controllers;
 
+import com.example.jee.projetjee.dto.UserDto;
 import com.example.jee.projetjee.repositories.CategoryRepository;
 import com.example.jee.projetjee.repositories.RoleRepository;
 import com.example.jee.projetjee.repositories.ScienceRepository;
@@ -51,10 +52,24 @@ public class AdminController {
     String readUsers(@NotNull Model model, @PathVariable long id) {
 
         var user = userRepository.findById(id);
+        var roles = roleRepository.findAll();
+        UserDto userDto = new UserDto();
 
+        if (user.isPresent()){
+            userDto.setIdUser(user.get().getIdUser());
+            userDto.setEmail(user.get().getEmail());
+            userDto.setUsername(user.get().getUsername());
+            userDto.setPassword(user.get().getPassword());
+            userDto.setRoles(user.get().getRoles());
+            userDto.setAccountNonExpired(user.get().isAccountNonExpired());
+            userDto.setAccountNonLocked(user.get().isAccountNonLocked());
+            userDto.setCredentialsNonExpired(user.get().isCredentialsNonExpired());
+            userDto.setEnabled(user.get().isEnabled());
+        }
 
-
+        model.addAttribute("userDto", userDto);
         model.addAttribute("user", user);
+        model.addAttribute("roles", roles);
         templateAttr(model);
         return "admin/userForm";
     }
