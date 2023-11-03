@@ -19,6 +19,8 @@
             <label th:if="${user.isEmpty()}">Password <input type="password" th:field="*{password}"></label>
             <label>Roles <select th:field="*{roles}" multiple><option th:each="role: ${roles}" th:text="${role.name}" th:value="${role.idRole}"></option> </select> </label>
 <!--       TODO faire marcher     <label>Account non expired<select th:field="*{isAccountNonExpired}"><option th:value="1">true</option> <option th:value="0">false</option> </select> </label>-->
+
+            <input type="submit" th:value="${user.isPresent()}? 'Modify' : 'Create'">
         </form>
     </main>
 
