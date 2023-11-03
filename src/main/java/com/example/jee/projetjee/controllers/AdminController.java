@@ -53,19 +53,8 @@ public class AdminController {
 
         var user = userRepository.findById(id);
         var roles = roleRepository.findAll();
-        UserDto userDto = new UserDto();
+        UserDto userDto = user.map(UserDto::new).orElseGet(UserDto::new);
 
-        if (user.isPresent()){
-            userDto.setIdUser(user.get().getIdUser());
-            userDto.setEmail(user.get().getEmail());
-            userDto.setUsername(user.get().getUsername());
-            userDto.setPassword(user.get().getPassword());
-            userDto.setRoles(user.get().getRoles());
-            userDto.setAccountNonExpired(user.get().isAccountNonExpired());
-            userDto.setAccountNonLocked(user.get().isAccountNonLocked());
-            userDto.setCredentialsNonExpired(user.get().isCredentialsNonExpired());
-            userDto.setEnabled(user.get().isEnabled());
-        }
 
         model.addAttribute("userDto", userDto);
         model.addAttribute("user", user);
