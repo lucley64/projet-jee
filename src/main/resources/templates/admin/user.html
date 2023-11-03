@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/adminFragments :: head}">
+</head>
+<body>
+<div>
+    <nav th:replace="~{admin/fragments/adminFragments :: nav(${template})}"></nav>
+    <div th:replace="~{admin/fragments/adminFragments :: sidebar}"></div>
+
+    <main class="main">
+        <h2>Users</h2>
+        <table class="table-fixed w-full">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>email</th>
+                <th>username</th>
+                <th>roles</th>
+                <th>carts</th>
+                <th>isAccountNonExpired</th>
+                <th>isAccountNonLocked</th>
+                <th>isCredentialsNonExpired</th>
+                <th>isEnabled</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="user: ${data}">
+                <td><a th:href="@{/admin/user/{id}(id=${user.idUser})}" th:text="${user.idUser}"></a> </td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.username}"></td>
+                <td>
+                    <ul class="max-h-3">
+                        <li th:each="role: ${user.roles}">
+                            <a th:href="@{/admin/role/{id}(id=${role.idRole})}" th:text="${role.name}"></a>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="max-h-3">
+                        <li th:each="cart: ${user.carts}">
+                            <a th:href="@{/admin/role/{id}(id=${cart.id})}" th:text="${cart.id}"></a>
+                        </li>
+                    </ul>
+                </td>
+                <td th:text="${user.isAccountNonExpired()}"></td>
+                <td th:text="${user.isAccountNonLocked()}"></td>
+                <td th:text="${user.isCredentialsNonExpired()}"></td>
+                <td th:text="${user.isEnabled()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </main>
+</div>
+</body>
+</html>
