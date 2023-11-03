@@ -14,7 +14,7 @@ import java.util.Optional;
 @Controller
 public class ScienceController {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Inject
     public ScienceController(@NotNull CategoryRepository categoryRepository) {
