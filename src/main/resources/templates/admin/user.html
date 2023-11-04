@@ -8,49 +8,54 @@
     <div th:replace="~{admin/fragments/adminFragments :: sidebar}"></div>
 
     <main class="main">
-        <h2>Users</h2>
-        <table class="table-fixed w-full">
-            <thead>
-            <tr>
-                <th>id</th>
-                <th>email</th>
-                <th>username</th>
-                <th>roles</th>
-                <th>carts</th>
-                <th>isAccountNonExpired</th>
-                <th>isAccountNonLocked</th>
-                <th>isCredentialsNonExpired</th>
-                <th>isEnabled</th>
+        <div class="overflow-x-auto shadow-md rounded-lg m-3 bg-gray-50 dark:bg-gray-800">
+            <h2 class="text-black dark:text-white font-bold text-2xl text-center">Users</h2>
+            <a th:href="@{./user/-1}"><button class="button">Add new</button></a>
+            <table class="table-fixed w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th class="px-6 py-3">Id</th>
+                    <th class="px-6 py-3">Email</th>
+                    <th class="px-6 py-3">Username</th>
+                    <th class="px-6 py-3">Roles</th>
+                    <th class="px-6 py-3">Carts</th>
+                    <th class="px-6 py-3">IsAccountNonExpired</th>
+                    <th class="px-6 py-3">IsAccountNonLocked</th>
+                    <th class="px-6 py-3">IsCredentialsNonExpired</th>
+                    <th class="px-6 py-3">IsEnabled</th>
+                    <th class="px-6 py-3">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
 
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="user: ${data}">
-                <td><a th:href="@{/admin/user/{id}(id=${user.idUser})}" th:text="${user.idUser}"></a> </td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.username}"></td>
-                <td>
-                    <ul class="max-h-3">
-                        <li th:each="role: ${user.roles}">
-                            <a th:href="@{/admin/role/{id}(id=${role.idRole})}" th:text="${role.name}"></a>
-                        </li>
-                    </ul>
-                </td>
-                <td>
-                    <ul class="max-h-3">
-                        <li th:each="cart: ${user.carts}">
-                            <a th:href="@{/admin/role/{id}(id=${cart.id})}" th:text="${cart.id}"></a>
-                        </li>
-                    </ul>
-                </td>
-                <td th:text="${user.isAccountNonExpired()}"></td>
-                <td th:text="${user.isAccountNonLocked()}"></td>
-                <td th:text="${user.isCredentialsNonExpired()}"></td>
-                <td th:text="${user.isEnabled()}"></td>
-            </tr>
-            </tbody>
-        </table>
+                <tr th:each="user: ${data}" class="border-2 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td><a th:href="@{/admin/user/{id}(id=${user.idUser})}" class="px-6 py-4 font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer" th:text="${user.idUser}"></a> </td>
+                    <td class="px-6 py-4" th:text="${user.email}"></td>
+                    <td class="px-6 py-4" th:text="${user.username}"></td>
+                    <td class="px-6 py-4">
+                        <ul class="max-h-3">
+                            <li th:each="role: ${user.roles}">
+                                <a th:href="@{/admin/role/{id}(id=${role.idRole})}" th:text="${role.name}"></a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="px-6 py-4">
+                        <ul class="max-h-3">
+                            <li th:if="${user.carts == null}">None</li>
+                            <li th:each="cart: ${user.carts}">
+                                <a th:href="@{/admin/role/{id}(id=${cart.id})}" th:text="${cart.id}"></a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td class="px-6 py-4" th:text="${user.isAccountNonExpired()}"></td>
+                    <td class="px-6 py-4" th:text="${user.isAccountNonLocked()}"></td>
+                    <td class="px-6 py-4" th:text="${user.isCredentialsNonExpired()}"></td>
+                    <td class="px-6 py-4" th:text="${user.isEnabled()}"></td>
+                    <td class="px-6 py-4"><form th:action="@{./user/del/{id}(id=${user.idUser})}" method="post"><input type="submit" value="delete" class="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"></form></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
 </div>
 </body>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/adminFragments :: head}">
+</head>
+<body>
+<div>
+    <nav th:replace="~{admin/fragments/adminFragments :: nav(${template})}"></nav>
+    <div th:replace="~{admin/fragments/adminFragments :: sidebar}"></div>
+
+    <main class="main">
+        <h1 th:if="${science.isEmpty()}">Add new science</h1>
+        <h1 th:if="${science.isPresent()}" th:text="'Modify science ' + ${science.get().name}"></h1>
+
+
+        <form method="post" th:action="@{~}" th:object="${scienceDto}">
+            <label>Id <input type="number" class="pointer-events-none" readonly th:field="*{idScience}"></label>
+            <label>Image <input type="text" th:field="*{image}"></label>
+            <label>Name <input type="text" th:field="*{name}"></label>
+            <label>Price <input type="number" th:field="*{price}"></label>
+            <label>Stock <input type="number" th:field="*{stock}"></label>
+            <label>Category <select th:field="*{category}"><option th:each="cat: ${categories}" th:text="${cat.name}" th:value="${cat.idCategory}"></option> </select></label>
+
+            <input class="button" type="submit" th:value="${science.isPresent()}? 'Modify' : 'Create'">
+        </form>
+    </main>
+
+</div>
+</body>
+</html>

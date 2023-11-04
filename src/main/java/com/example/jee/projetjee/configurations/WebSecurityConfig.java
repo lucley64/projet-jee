@@ -23,6 +23,7 @@ public class WebSecurityConfig {
     @Resource(name = "userDetailsService")
     private UserService userService;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity security) throws Exception {
 
@@ -30,6 +31,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
                         authorizationManagerRequestMatcherRegistry
+                                .requestMatchers("/admin/**")
+                                .hasAuthority("ROLE_ADMINISTRATOR")
                                 .requestMatchers("/**")
                                 .permitAll().anyRequest())
                 .headers(httpSecurityHeadersConfigurer ->
@@ -42,7 +45,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authProvider(){
+    public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
@@ -50,7 +53,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

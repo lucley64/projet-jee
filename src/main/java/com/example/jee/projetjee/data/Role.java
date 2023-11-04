@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.util.Assert;
 
 @Entity
 @Getter
@@ -20,9 +19,7 @@ public class Role implements GrantedAuthority {
     private String name;
 
     public void setName(@NotNull String name) {
-        Assert.isTrue(!name.startsWith("ROLE_"),
-                () -> name + " cannot start with ROLE_ (it is automatically added)");
-        this.name = "ROLE_" + name;
+        this.name = name.startsWith("ROLE_") ? name : "ROLE_" + name;
     }
 
     @Override

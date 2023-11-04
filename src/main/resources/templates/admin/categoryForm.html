@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/adminFragments :: head}">
+</head>
+<body>
+<div>
+    <nav th:replace="~{admin/fragments/adminFragments :: nav(${template})}"></nav>
+    <div th:replace="~{admin/fragments/adminFragments :: sidebar}"></div>
+
+    <main class="main">
+        <h1 th:if="${category.isEmpty()}">Add new category</h1>
+        <h1 th:if="${category.isPresent()}" th:text="'Modify category ' + ${category.get().name}"></h1>
+
+
+        <form method="post" th:action="@{~}" th:object="${categoryDto}">
+            <label>Id <input type="number" class="pointer-events-none" readonly th:field="*{idCategory}"></label>
+            <label>Name <input type="text" th:field="*{name}"></label>
+
+            <input class="button" type="submit" th:value="${category.isPresent()}? 'Modify' : 'Create'">
+        </form>
+    </main>
+
+</div>
+</body>
+</html>

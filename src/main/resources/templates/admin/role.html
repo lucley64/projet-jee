@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/adminFragments :: head}">
+</head>
+<body>
+<div>
+    <nav th:replace="~{admin/fragments/adminFragments :: nav(${template})}"></nav>
+    <div th:replace="~{admin/fragments/adminFragments :: sidebar}"></div>
+
+    <main class="main">
+        <div class="overflow-x-auto shadow-md rounded-lg m-3 bg-gray-50 dark:bg-gray-800">
+            <h2 class="text-black dark:text-white font-bold text-2xl text-center">Users</h2>
+            <a th:href="@{./role/-1}"><button class="button">Add new</button></a>
+            <table class="table-fixed w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th class="px-6 py-3">Id</th>
+                    <th class="px-6 py-3">Name</th>
+                    <th class="px-6 py-3">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="role: ${data}" class="border-2 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td><a th:href="@{/admin/role/{id}(id=${role.idRole})}" class="px-6 py-4 font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer" th:text="${role.idRole}"></a> </td>
+                    <td class="px-6 py-4" th:text="${role.name}"></td>
+                    <td class="px-6 py-4"><form th:action="@{./role/del/{id}(id=${role.idRole})}" method="post"><input type="submit" value="delete" class="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"></form></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+</body>
+</html>
