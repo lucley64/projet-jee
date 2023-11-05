@@ -31,7 +31,7 @@
                     <td class="px-6 py-4" th:text="${science.name}"></td>
                     <td class="px-6 py-4" th:text="${science.price}"></td>
                     <td class="px-6 py-4" th:text="${science.stock}"></td>
-                    <td class="px-6 py-4"><a th:href="@{./category/{id}(id=${science.category.idCategory})}" th:text="${science.category}"></a> </td>
+                    <td class="px-6 py-4"><a th:href="@{./category/{id}(id=${science.category.idCategory})}" th:text="${science.category.name}"></a> </td>
                     <td class="px-6 py-4"><form th:action="@{./science/del/{id}(id=${science.idScience})}" method="post"><input type="submit" value="delete" class="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"></form></td>
                 </tr>
                 </tbody>

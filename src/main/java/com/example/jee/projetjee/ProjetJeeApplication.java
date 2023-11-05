@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
@@ -20,7 +21,8 @@ public class ProjetJeeApplication {
 
     @Bean
     public CommandLineRunner demo(RoleRepository roleRepository,
-                                  UserRepository userRepository){
+                                  UserRepository userRepository,
+                                  PasswordEncoder passwordEncoder){
         return args -> {
             var admin = roleRepository.findByName("ROLE_ADMINISTRATOR");
             if (admin.isEmpty()){
@@ -40,7 +42,7 @@ public class ProjetJeeApplication {
                 User user1 = new User();
                 user1.setUsername("admin");
                 user1.setEmail("admin");
-                user1.setPassword("admin");
+                user1.setPassword(passwordEncoder.encode("admin"));
                 user1.setRoles(Set.of(admin.get()));
                 userRepository.save(user1);
 
