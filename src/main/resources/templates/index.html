@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<div th:replace="~{fragments/base :: nav}"></div>
+<div th:replace="~{fragments/base :: nav(${template})}"></div>
 <div th:replace="~{fragments/base :: footer}"></div>
 
 <main th:replace="~{('fragments/' + ${template}) :: main}"></main>

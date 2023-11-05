@@ -8,7 +8,7 @@
 </head>
 <body th:fragment="template">
 
-<nav th:fragment="nav" class="h-20 fixed bg-blue-300 dark:bg-gray-900 w-full z-40 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+<nav th:fragment="nav(template)" class="h-20 fixed bg-blue-300 dark:bg-gray-900 w-full z-40 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a th:href="@{/}" class="flex items-center">
             <img th:src="@{/img/1200px-Aperture_Science_Logo.svg.png}" class="h-8 mr-3" alt="Aperture science logo">
@@ -27,6 +27,11 @@
             <div sec:authorize="hasAnyRole('ROLE_ADMINISTRATOR')" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <a th:href="@{/admin}">
                     <button>admin</button>
+                </a>
+            </div>
+            <div sec:authorize="isAuthenticated()" class="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <a th:href="@{/cart}">
+                    <button id="cart-button">cart</button>
                 </a>
             </div>
 
@@ -54,8 +59,6 @@
 
     </div>
 </nav>
-
-
 
 
 

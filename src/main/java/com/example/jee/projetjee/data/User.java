@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,8 +31,8 @@ public class User implements UserDetails {
     @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(mappedBy = "user")
-    private transient Set<Cart> carts = new HashSet<>();
+    @OneToMany(targetEntity = Cart.class, mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Cart> carts;
 
     @Column
     private boolean isAccountNonExpired = true;

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/base :: head}">
+</head>
+<body>
+
+<div th:replace="~{fragments/base :: nav(${template})}"></div>
+<div th:replace="~{fragments/base :: footer}"></div>
+
+<main>
+    <h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white">Cart</h1>
+    <div th:if="${cart != null}">
+        <ul class="rounded-lg md:w-2/3">
+            <li th:each="science: ${cart.getScienceQuantities()}" class="justify-between mb-6 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 shadow-md sm:flex sm:justify-start">
+                <img th:src="${science.key.science.image}" alt="product-image" class="w-full rounded-lg sm:w-40" />
+                <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                    <div class="mt-5 sm:mt-0">
+                        <h2 class="text-lg font-bold" th:text="${science.key.science.name}"></h2>
+                        <p class="mt-1 text-xs" th:text="${science.key.science.category.name}"></p>
+                    </div>
+                    <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                        <div class="flex items-center border-gray-100">
+                            <a th:href="@{'/cart/' + ${science.key.science.idScience} + '/decrement'}">
+                                <button type="button" data-action="decrement"
+                                        class=" button">
+                                    <span class=" text-2xl font-thin">−</span>
+                                </button>
+                            </a>
+                            <input type="number"
+                                   class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
+                                   name="quantity" th:value="${science.quantity}">
+                            <a th:href="@{'/cart/' + ${science.key.science.idScience} + '/increment'}">
+                                <button type="button" data-action="increment"
+                                        class="button">
+                                    <span class=" text-2xl font-thin">+</span>
+                                </button>
+                            </a>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <p class="text-sm" th:text="${science.quantity} + ' x ' + ${science.key.science.price} + ' = ' + (${science.quantity} * ${science.key.science.price})"></p>
+                            <a th:href="@{'/cart/' + ${science.key.science.idScience} + '/remove'}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500 text-white dark:text-black">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="rounded-lg md:w-2/3">
+            <div class="mb-6 rounded-lg bg-gray-50 dark:bg-gray-800 p-6 shadow-md">
+                <div class="flex justify-between">
+                    <p class="text-lg font-bold">Total</p>
+                    <hr class="my-4" />
+                    <div class="">
+                        <p class="mb-1 text-lg font-bold" th:text="${sum}"></p>
+                        <p class="text-sm">including VAT</p>
+                    </div>
+                </div>
+                <button class="button">Check out</button>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

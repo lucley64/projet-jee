@@ -53,7 +53,6 @@ public class ScienceController {
         model.addAttribute("selectedCat", selectedCat);
         model.addAttribute("template", "science");
 
-
         return "science";
     }
 
@@ -81,6 +80,71 @@ public class ScienceController {
             }
         }
         return new RedirectView("/science");
+    }
+
+    @RequestMapping("/cart")
+    String cart(@NotNull Model model){
+
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof User user){
+            Optional<Cart> cartOptional = cartRepository.findByUser(user).stream().filter(c -> c.getDate() == null).findFirst();
+
+            cartOptional.ifPresent(cart -> {
+                model.addAttribute("cart", cart);
+                var sumStream = cart.getScienceQuantities().stream().mapToDouble(scienceQuantity ->
+                        scienceQuantity.getQuantity() * scienceQuantity.getKey().getScience().getPrice());
+                model.addAttribute("sum", sumStream.sum());
+            });
+        }
+
+
+        model.addAttribute("template", "cart");
+        return "cart";
+    }
+
+    @RequestMapping("/cart/{id}/{action}")
+    RedirectView cartAction(Model model, @PathVariable String action, @PathVariable long id){
+
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof User user){
+            Optional<Cart> cartOptional = cartRepository.findByUser(user).stream().filter(c -> c.getDate() == null).findFirst();
+
+            if (cartOptional.isPresent()){
+                var scienceQuantityOptional = cartOptional.get().getScienceQuantities().stream().filter(scienceQuantity1 -> scienceQuantity1.getKey().getScience().getIdScience() == id).findFirst();
+                if (scienceQuantityOptional.isPresent()){
+                    ScienceQuantity scienceQuantity = scienceQuantityOptional.get();
+                    makeAction(action, scienceQuantity);
+                }
+            }
+        }
+
+
+        return new RedirectView("/cart");
+    }
+
+    private void makeAction(@NotNull String action, ScienceQuantity scienceQuantity) {
+        switch (action){
+            case "decrement":
+                if (scienceQuantity.getQuantity() > 1){
+                    scienceQuantity.setQuantity(scienceQuantity.getQuantity() - 1);
+                    scienceQuantityRepository.save(scienceQuantity);
+                }
+                else {
+                    scienceQuantityRepository.delete(scienceQuantity);
+                }
+                break;
+            case "increment":
+                if (scienceQuantity.getQuantity() + 1 <= scienceQuantity.getKey().getScience().getStock()){
+                    scienceQuantity.setQuantity(scienceQuantity.getQuantity() + 1);
+                    scienceQuantityRepository.save(scienceQuantity);
+                }
+                break;
+            case "remove":
+                scienceQuantityRepository.delete(scienceQuantity);
+                break;
+            default:
+                break;
+        }
     }
 
 
