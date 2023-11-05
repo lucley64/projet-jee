@@ -17,3 +17,18 @@ body{
 input, select, textarea{
     @apply border-2 border-gray-400 dark:border-gray-800 bg-gray-200 dark:bg-gray-600 text-black dark:text-white
 }
+
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.custom-number-input input:focus {
+    outline: none !important;
+}
+
+.custom-number-input button:focus {
+    outline: none !important;
+}

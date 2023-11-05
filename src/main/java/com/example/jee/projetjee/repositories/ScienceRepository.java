@@ -14,4 +14,6 @@ public interface ScienceRepository extends CrudRepository<Science, Long> {
     Optional<Science> findByName(String name);
 
     Optional<Set<Science>> findByCategory(Category category);
+
+    Science findByIdScience(Long id);
 }

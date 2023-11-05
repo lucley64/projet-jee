@@ -41,8 +41,8 @@
                     </td>
                     <td class="px-6 py-4">
                         <ul class="max-h-3">
-                            <li th:if="${user.carts == null}">None</li>
-                            <li th:each="cart: ${user.carts}">
+                            <li th:if="${user.cart == null}">None</li>
+                            <li th:each="cart: ${user.cart}">
                                 <a th:href="@{/admin/role/{id}(id=${cart.id})}" th:text="${cart.id}"></a>
                             </li>
                         </ul>

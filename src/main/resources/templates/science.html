@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head th:replace="~{fragments/base :: head}">
 </head>
 <body>
@@ -8,40 +8,56 @@
 <div th:replace="~{fragments/base :: footer}"></div>
 
 <main th:fragment="main" class="main">
-    <script th:src="@{/js/science.js}"></script>
 
-    <h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white">Produits</h1>
+    <h1 class="text-3xl text-center z-0 bg-blue-200 dark:bg-blue-950 dark:text-white">Products</h1>
     <!--        <div th:each="category: ${categories}"><p th:text="${category.name}"></p> </div>-->
 
     <div class="fixed top-0 left-0 z-20 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 pt-20 bg-blue-200 dark:bg-gray-800">
         <div class="flex flex-col ... py-2">
-            <a class="button m-3" th:each="category: ${categories}" th:href="@{'/science/' + ${category.name.toLowerCase()}}">
+            <a class="button m-3" th:each="category: ${categories}"
+               th:href="@{'/science/' + ${category.name.toLowerCase()}}">
                 <button th:text="${category.name}"></button>
             </a>
         </div>
     </div>
 
 
-    <div class="overflow-x-auto shadow-md rounded-lg m-3 bg-gray-50 dark:bg-gray-800" th:if="${selectedCat.isPresent()}" th:with="category=${selectedCat.get()}">
+    <div class="overflow-x-auto shadow-md rounded-lg m-3 bg-gray-50 dark:bg-gray-800" th:if="${selectedCat.isPresent()}"
+         th:with="category=${selectedCat.get()}">
         <h2 class="text-black dark:text-white font-bold text-2xl text-center" th:text="${category.name}"></h2>
         <table class="table-fixed w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th class="px-6 py-3">Image</th>
-                <th class="px-6 py-3">Nom</th>
-                <th class="px-6 py-3">Prix</th>
-                <th class="px-6 py-3">Commande</th>
+                <th class="px-6 py-3">Name</th>
+                <th class="px-6 py-3">Price</th>
+                <th sec:authorize="isAuthenticated()" class="px-6 py-3">Command</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="science: ${category.sciences}" class="border-2 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr th:each="science: ${category.sciences}"
+                class="border-2 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
                     <img th:src="@{${science.image}}" th:alt="${science.name}" height="100" width="100"/>
                 </td>
                 <td class="px-6 py-4" th:id="${science.idScience}" th:text="${science.name}"></td>
                 <td class="px-6 py-4" th:text="${science.price} + '€'"></td>
-                <td class="px-6 py-4">
-                    isDisabled
+                <td sec:authorize="isAuthenticated()" class="px-6 py-4">
+                    <form th:action="@{/science/command/{id}(id=${science.idScience})}" method="post"
+                          class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                        <button type="button" data-action="decrement"
+                                class=" button">
+                            <span class=" text-2xl font-thin">−</span>
+                        </button>
+                        <input type="number"
+                               class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700"
+                               name="quantity" value="0">
+                        <button type="button" data-action="increment"
+                                class="button">
+                            <span class=" text-2xl font-thin">+</span>
+                        </button>
+                        <input type="submit" value="add to basket" class="button">
+                    </form>
                 </td>
             </tr>
             </tbody>
@@ -148,6 +164,7 @@
     <!--        </div>-->
     <!--        <div id="zoomImage" hidden></div>-->
     <!--        <div id="zoomLens" hidden></div>-->
+    <script th:src="@{/js/science.js}"></script>
 </main>
 </body>
 </html>

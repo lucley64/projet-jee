@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-public class Carts {
+public class Cart {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column
@@ -23,6 +23,7 @@ public class Carts {
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    private List<Science> sciences;
+
+    @OneToMany(mappedBy = "key.cart")
+    Set<ScienceQuantity> scienceQuantities;
 }
